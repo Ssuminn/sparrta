@@ -1,0 +1,99 @@
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Scanner;
+
+// 자료구조-요리 레시피 메모장 만들기
+//
+// 입력값
+//    - 저장할 자료구조명을 입력(List,Set,Map)
+//    - 내가 좋아하는 요리의 제목을 먼저 입력
+//    - 이어서 내가 좋아하는 요리의 레시피를 한문장씩 입력
+//    - 입력을 마쳤으면 마지막에 "끝" 문자를 입력
+// 출력값
+//    - 입력이 종료되면 저장한 자료구조 이름과 요리 제목을 괄호로 감싸서 먼저 출력
+//    - 이어서, 입력한 모든 문장앞에 번호를 붙여서 입력 순서에 맞게 모두 출력
+
+public class Main {
+    public static void main(String[] args) {
+
+
+                Scanner sc = new Scanner(System.in);
+                String collectionName = sc.next();
+                String title = sc.nextLine();
+
+                switch (collectionName) {
+                    case "List":
+                        ArrayList<String> strList = new ArrayList<>(); //선언 및 생성
+                        //ArrayList 배열처럼 일렬로 데이터를 저장하고 조회 순번값으로 값을 하나씩 조회 가능
+                        while (true) {
+                            // 한줄씩 입력받아서 strList 에 저장
+                            String text = sc.nextLine();
+                            if (Objects.equals(text, "끝")) {
+                                break;
+                            }
+                            strList.add(text);
+                        }
+
+                        title = "[ List로 저장된 " + title + " ]";  // [ 제목 ]
+                        System.out.println(title); // [ List로 저장된 (제목) ] 출력
+                        // strList 한줄씩 출력
+                        for (int i = 0; i < strList.size(); i++) {
+                            int number = i + 1;
+                            System.out.println(number + ". " + strList.get(i));
+                        }
+                        break;
+                    case "Set":
+                        LinkedHashSet<String> strSet = new LinkedHashSet<>(); //선언 및 생성
+                        //LinkedHashSet 순서보장이 필요한경우 사용
+                        while (true) {
+                            // 한줄씩 입력받아서 strList 에 저장
+                            String text = sc.nextLine();
+                            if (Objects.equals(text, "끝")) {
+                                break;
+                            }
+                            strSet.add(text);
+                        }
+
+                        title = "[ Set으로 저장된 " + title + " ]"; //[ 제목 ]
+                        System.out.println(title); // 제목 출력
+
+                        Iterator iterator = strSet.iterator();
+                        // strList 한줄씩 출력
+                        for (int i = 0; i < strSet.size(); i++) {
+                            int number = i + 1;
+                            System.out.println(number + ". " + iterator.next());
+                        }
+                        break;
+                    case "Map":
+                        Map<Integer, String> strMap = new HashMap<>(); //선언 및 생성
+                        // HashMap 중복을 허용하지 않고 순서를 보장하지 않고, 키와 값으로 null이 허용
+                        int lineNumber = 1;
+                        while (true) {
+                            // 한줄씩 입력받아서 strList 에 저장
+                            String text = sc.nextLine();
+                            if (Objects.equals(text, "끝")) {
+                                break;
+                            }
+                            strMap.put(lineNumber++, text);
+                        }
+
+                        title = "[ Map으로 저장된 " + title + " ]"; // [ 제목 ]
+                        System.out.println(title);
+
+                        // strList 한줄씩 출력
+                        for (int i = 0; i < strMap.size(); i++) {
+                            int number = i + 1;
+                            System.out.println(number + ". " + strMap.get(i + 1));
+                        }
+                        break;
+                    default:
+                        System.out.println("저장할 수 없는 자료구조 입니다.");
+                }
+            }
+        }
